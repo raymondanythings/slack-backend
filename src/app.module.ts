@@ -46,7 +46,8 @@ import { Workspaces } from './entities/Workspaces.entity'
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      synchronize: true,
+      // synchronize: process.env.NODE_ENV !== 'prod',
+      synchronize: false,
       logging:
         process.env.NODE_ENV !== 'prod' && process.env.NODE_ENV !== 'test',
       // migrations: [__dirname + '/src/migrations/*.ts'],
