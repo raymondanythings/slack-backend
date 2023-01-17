@@ -4,6 +4,10 @@ import { AppService } from './app.service'
 import { ConfigModule } from '@nestjs/config'
 import Joi from 'joi'
 import { LoggerMiddleware } from './logger/logger.middleware'
+import { UserModule } from './user/user.module'
+import { ChannelModule } from './channel/channel.module'
+import { WorkspaceModule } from './workspace/workspace.module'
+import { DmModule } from './dm/dm.module'
 
 @Module({
   imports: [
@@ -19,6 +23,10 @@ import { LoggerMiddleware } from './logger/logger.middleware'
         DB_PASSWORD: Joi.string().required(),
       }),
     }),
+    UserModule,
+    ChannelModule,
+    WorkspaceModule,
+    DmModule,
   ],
   controllers: [AppController],
 
