@@ -17,9 +17,9 @@ import { Mentions } from './Mentions.entity'
 import { WorkspaceMembers } from './WorkspaceMembers.entity'
 import { Users } from './Users.entity'
 
-// @Index('name', ['name'], { unique: true })
-// @Index('url', ['url'], { unique: true })
-// @Index('OwnerId', ['OwnerId'], {})
+@Index('name', ['name'], { unique: true })
+@Index('url', ['url'], { unique: true })
+@Index('OwnerId', ['OwnerId'], {})
 @Entity({ schema: 'sleact', name: 'workspaces' })
 export class Workspaces {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })

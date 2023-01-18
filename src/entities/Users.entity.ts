@@ -19,7 +19,7 @@ import { Mentions } from './Mentions.entity'
 import { WorkspaceMembers } from './WorkspaceMembers.entity'
 import { Workspaces } from './Workspaces.entity'
 
-// @Index('email', ['email'], { unique: true })
+@Index('email', ['email'], { unique: true })
 @Entity({ schema: 'sleact', name: 'users' })
 export class Users {
   @ApiProperty({

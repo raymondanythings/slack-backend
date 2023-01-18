@@ -11,9 +11,9 @@ import {
 import { Workspaces } from './Workspaces.entity'
 import { Users } from './Users.entity'
 
-// @Index('WorkspaceId', ['WorkspaceId'], {})
-// @Index('SenderId', ['SenderId'], {})
-// @Index('ReceiverId', ['ReceiverId'], {})
+@Index('WorkspaceId', ['WorkspaceId'], {})
+@Index('SenderId', ['SenderId'], {})
+@Index('ReceiverId', ['ReceiverId'], {})
 @Entity({ schema: 'sleact', name: 'mentions' })
 export class Mentions {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })

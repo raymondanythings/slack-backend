@@ -15,7 +15,7 @@ import { ChannelMembers } from './ChannelMembers.entity'
 import { Users } from './Users.entity'
 import { Workspaces } from './Workspaces.entity'
 
-// @Index('WorkspaceId', ['WorkspaceId'], {})
+@Index('WorkspaceId', ['WorkspaceId'], {})
 @Entity({ schema: 'sleact' })
 export class Channels {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
