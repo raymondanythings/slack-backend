@@ -9,5 +9,7 @@ declare namespace NodeJS {
     DB_PASSWORD: string
     DB_DATABASE: string
     DB_TYPE: 'mysql' | 'mariadb'
+    HASH_SALT: string
+    COOKIE_SECRET: string
   }
 }

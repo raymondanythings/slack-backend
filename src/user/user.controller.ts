@@ -1,3 +1,5 @@
+import { NotLoggedInGuard } from './../auth/not-logged-in.guard'
+import { LoggedInGuard } from './../auth/logged-in.guard'
 import { UndefinedToNullInterceptor } from './../common/interceptors/undefinedToNull.interceptor'
 import { ApiTags } from '@nestjs/swagger/dist/decorators/api-use-tags.decorator'
 import { UserService } from './user.service'
@@ -8,6 +10,7 @@ import {
   Post,
   Req,
   Res,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common'
 import { JoinRequestDto } from './dtos/join.request.dto'
@@ -18,6 +21,9 @@ import {
 } from '@nestjs/swagger/dist'
 import { UserDto } from './dtos/user.dto'
 import { User } from './user.decorator'
+import { LocalAuthGuard } from 'src/auth/local-auth.guard'
+import { Users } from 'src/entities/Users.entity'
+import { Response } from 'express'
 
 @UseInterceptors(UndefinedToNullInterceptor)
 @ApiTags('USER')
@@ -46,24 +52,27 @@ export class UserController {
     },
   })
   @Get()
-  getLoggedInUser(@User() user) {
-    return user
+  getLoggedInUser(@User() user: Users) {
+    return user || false
   }
 
   @ApiOperation({ summary: '회원가입' })
+  @UseGuards(NotLoggedInGuard)
   @Post()
-  postUser(@Body() user: JoinRequestDto) {
-    this.userService.postUser(user)
+  async joinUser(@Body() user: JoinRequestDto) {
+    return await this.userService.joinUser(user)
   }
   @ApiOperation({ summary: '로그인' })
+  @UseGuards(LocalAuthGuard)
   @Post('login')
-  login(@User() user) {
+  login(@User() user: Users): Users {
     return user
   }
 
   @ApiOperation({ summary: '로그아웃' })
+  @UseGuards(LoggedInGuard)
   @Post('logout')
-  logout(@Req() req, @Res() res) {
+  logout(@Req() req, @Res() res: Response) {
     req.logOut()
     res.clearCookie('connect.sid', { httpOnly: true })
     res.send('OK')

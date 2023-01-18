@@ -1,6 +1,4 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { ConfigModule } from '@nestjs/config'
 import Joi from 'joi'
 import { LoggerMiddleware } from './logger/logger.middleware'
@@ -17,6 +15,7 @@ import { Mentions } from './entities/Mentions.entity'
 import { Users } from './entities/Users.entity'
 import { WorkspaceMembers } from './entities/WorkspaceMembers.entity'
 import { Workspaces } from './entities/Workspaces.entity'
+import { AuthModule } from './auth/auth.module'
 
 @Module({
   imports: [
@@ -33,6 +32,8 @@ import { Workspaces } from './entities/Workspaces.entity'
         DB_DATABASE: Joi.string().required(),
         DB_TYPE: Joi.string().required(),
         PORT: Joi.string(),
+        HASH_SALT: Joi.string().required(),
+        COOKIE_SECRET: Joi.string().required(),
       }),
     }),
     UserModule,
@@ -64,10 +65,11 @@ import { Workspaces } from './entities/Workspaces.entity'
         Users,
       ],
     }),
+    AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [],
 
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
