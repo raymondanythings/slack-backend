@@ -16,6 +16,8 @@ import { DMs } from './DMs.entity'
 import { Mentions } from './Mentions.entity'
 import { WorkspaceMembers } from './WorkspaceMembers.entity'
 import { Users } from './Users.entity'
+import { IsNotEmpty, IsString } from 'class-validator'
+import { ApiProperty } from '@nestjs/swagger'
 
 @Index('name', ['name'], { unique: true })
 @Index('url', ['url'], { unique: true })
@@ -25,9 +27,21 @@ export class Workspaces {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number
 
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: '슬리액트',
+    description: '워크스페이스명',
+  })
   @Column('varchar', { name: 'name', unique: true, length: 30 })
   name: string
 
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: 'sleact',
+    description: 'url 주소',
+  })
   @Column('varchar', { name: 'url', unique: true, length: 30 })
   url: string
 
