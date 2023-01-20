@@ -55,6 +55,8 @@ export class UserService {
       )
 
       await queryRunner.commitTransaction()
+      const { password: hidePassword, ...result } = newUser
+      return result
     } catch (error) {
       await queryRunner.rollbackTransaction()
       throw error

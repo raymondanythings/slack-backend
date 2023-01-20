@@ -62,7 +62,9 @@ export class UserController {
   async joinUser(@Body() user: JoinRequestDto) {
     return await this.userService.joinUser(user)
   }
-  @ApiOperation({ summary: '로그인' })
+  @ApiOperation({
+    summary: '로그인',
+  })
   @UseGuards(LocalAuthGuard)
   @Post('login')
   login(@User() user: Users): Users {
