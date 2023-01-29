@@ -16,6 +16,8 @@ import { Users } from './entities/Users.entity'
 import { WorkspaceMembers } from './entities/WorkspaceMembers.entity'
 import { Workspaces } from './entities/Workspaces.entity'
 import { AuthModule } from './auth/auth.module'
+import { EventsGateway } from './events/events.gateway'
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -66,6 +68,7 @@ import { AuthModule } from './auth/auth.module'
       ],
     }),
     AuthModule,
+    EventsModule,
   ],
   controllers: [],
 
